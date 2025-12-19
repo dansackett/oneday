@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Profile {
+  id        String    @id @db.Uuid @default(uuid())
+  userId    String    @map("user_id") @unique @default(cuid())
+  email     String    @unique
+  name      String
+  createdAt DateTime  @map("created_at") @default(now())
+
+  @@map("profiles")
+}
+
+model DailyEntry {
+  id          String   @id @default(uuid())
+  userId      String   @map("user_id")
+  localDate   DateTime @map("date") // normalized to start of day
+  timezone    String?  // "America/Los_Angeles"
+  heavy       String?  // "what's weighing on me"
+  good        String?  // "what went well"
+  nextStep    String?  // "next small step"
+  completed   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userId, localDate])
+  @@index([userId, localDate])
+
+  @@map("daily_entries")
+}
