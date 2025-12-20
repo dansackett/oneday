@@ -5,7 +5,7 @@ import { DailyEntry } from "@/types";
 import EntryRevisitBtn from "./entry-revisit-btn";
 
 
-export default function FirstEntryDisplay({ entry, name }: { entry: DailyEntry | null, name: string }) {
+export default function FirstEntryDisplay({ entry, name }: { entry: DailyEntry | null, name: string | undefined }) {
   return (
     <section className="space-y-10 animate-fade-in">
       <h1 className={cn(lora.className, "text-4xl weight-500 text-slate-950 mb-1")}>
