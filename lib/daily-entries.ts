@@ -14,8 +14,6 @@ export async function getOrCreateTodayEntry(user: JwtPayload | undefined): Promi
   const today = formatISO(startOfDay(new Date()));
   const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
 
-  console.log(today);
-
   if (!user) {
     throw new Error("User not found");
   }
@@ -49,7 +47,7 @@ export async function getEntryForDate(user: JwtPayload | undefined, date: Date):
   const entry = await prisma.dailyEntry.findFirst({
     where: {
       userId: user?.sub,
-      localDate: startOfDay(date),
+      localDate: formatISO(startOfDay(date)),
     }
   })
 

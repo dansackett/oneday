@@ -21,7 +21,7 @@ export default function EntryRevisitBtn({ entry, isFirstEntry = false }: { entry
         type="button"
         tabIndex={0}
         className="cursor-pointer text-slate-800 text-sm transition"
-        onClick={() => redirect(`/me/${format(entry.localDate, 'yyyy-MM-dd')}`)}
+        onClick={() => redirect(`/me/${formatInTimeZone(entry.localDate, timezone, 'yyyy-MM-dd')}`)}
       >
         {
           isFirstEntry ?

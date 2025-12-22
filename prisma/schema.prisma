@@ -20,7 +20,7 @@ model Profile {
 model DailyEntry {
   id          String   @id @default(uuid())
   userId      String   @map("user_id")
-  localDate   DateTime @map("date") // normalized to start of day
+  localDate   DateTime @map("date")
   timezone    String?  // "America/Los_Angeles"
   heavy       String?  // "what's weighing on me"
   good        String?  // "what went well"
