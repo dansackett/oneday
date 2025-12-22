@@ -2,7 +2,7 @@
 
 import prisma from "@/lib/prisma";
 import { revalidatePath } from 'next/cache'
-import { startOfMonth, endOfMonth, startOfDay, format } from 'date-fns'
+import { startOfMonth, endOfMonth, startOfDay, format, formatISO } from 'date-fns'
 import { JwtPayload } from "@supabase/supabase-js";
 import { DailyEntry, DailyEntryInput } from "@/types";
 
@@ -11,8 +11,10 @@ import { DailyEntry, DailyEntryInput } from "@/types";
  * @param user Supabase user
  */
 export async function getOrCreateTodayEntry(user: JwtPayload | undefined): Promise<DailyEntry | null> {
-  const today = format(startOfDay(new Date()), "yyyy-MM-ddTHH:mm:ss.SSSXXX");
+  const today = formatISO(startOfDay(new Date()));
   const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
+
+  console.log(today);
 
   if (!user) {
     throw new Error("User not found");
