@@ -21,12 +21,12 @@ export async function getOrCreateTodayEntry(user: JwtPayload | undefined): Promi
   return prisma.dailyEntry.upsert({
     where: {
       userId_localDate: {
-        localDate: todayUTC,
+        localDate: todayUTC.toISOString(),
         userId: user?.sub,
       },
     },
     create: {
-      localDate: todayUTC,
+      localDate: todayUTC.toISOString(),
       userId: user?.sub,
       timezone: timeZone,
     },

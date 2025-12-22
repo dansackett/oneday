@@ -22,8 +22,6 @@ const EntryViewOrForm = async ({ params }: { params: { date: string } }) => {
 
   const thisEntry: DailyEntry | null = await getEntryForDate(user, thisDay);
 
-  console.log({ user, thisDay, thisEntry });
-
   const timezone = thisEntry?.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone;
   const isThisToday = formatInTimeZone(thisDay, timezone, 'yyyy-MM-dd') === formatInTimeZone(today, timezone, 'yyyy-MM-dd');
 
