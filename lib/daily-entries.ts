@@ -11,8 +11,10 @@ import { DailyEntry, DailyEntryInput } from "@/types";
  * @param user Supabase user
  */
 export async function getOrCreateTodayEntry(user: JwtPayload | undefined): Promise<DailyEntry | null> {
-  const todayUTC = startOfDay(new Date());
+  const today = startOfDay(new Date());
   const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
+
+  console.log({ today, timeZone });
 
   if (!user) {
     throw new Error("User not found");
@@ -21,12 +23,12 @@ export async function getOrCreateTodayEntry(user: JwtPayload | undefined): Promi
   return prisma.dailyEntry.upsert({
     where: {
       userId_localDate: {
-        localDate: todayUTC.toISOString(),
+        localDate: today,
         userId: user?.sub,
       },
     },
     create: {
-      localDate: todayUTC.toISOString(),
+      localDate: today,
       userId: user?.sub,
       timezone: timeZone,
     },

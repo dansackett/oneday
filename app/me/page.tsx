@@ -52,10 +52,8 @@ const TodayEntryOrForm = async ({ searchParams }: { searchParams: { month?: stri
     throw new Error("User not found");
   }
 
-
-  const profile = await getUserProfile(user);
   const today = new Date();
-  let thisMonth = today;
+  const profile = await getUserProfile(user);
 
   // Make sure we always generate an entry for today
   const TodaysEntry: DailyEntry | null = await getOrCreateTodayEntry(user);
@@ -76,6 +74,8 @@ const TodayEntryOrForm = async ({ searchParams }: { searchParams: { month?: stri
   if (daysSinceLastEntry && daysSinceLastEntry > SHOW_WELCOME_BACK_AFTER_DAYS) {
     return <WelcomeBackDisplay entry={TodaysEntry} />
   }
+
+  let thisMonth = today;
 
   if (params.month) {
     thisMonth = await getMonthFromSearchParams(params.month)
