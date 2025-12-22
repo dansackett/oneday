@@ -11,7 +11,7 @@ import { DailyEntry, DailyEntryInput } from "@/types";
  * @param user Supabase user
  */
 export async function getOrCreateTodayEntry(user: JwtPayload | undefined): Promise<DailyEntry | null> {
-  const today = format(startOfDay(new Date()), "yyyy-MM-ddTHH:mm:ssZ");
+  const today = format(startOfDay(new Date()), "yyyy-MM-ddTHH:mm:ss.SSSXXX");
   const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
 
   if (!user) {
