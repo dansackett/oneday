@@ -11,10 +11,8 @@ import { DailyEntry, DailyEntryInput } from "@/types";
  * @param user Supabase user
  */
 export async function getOrCreateTodayEntry(user: JwtPayload | undefined): Promise<DailyEntry | null> {
-  const today = startOfDay(new Date());
+  const today = format(startOfDay(new Date()), "yyyy-MM-dd HH:mm:ss");
   const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
-
-  console.log({ today, timeZone });
 
   if (!user) {
     throw new Error("User not found");
